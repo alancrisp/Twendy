@@ -10,6 +10,9 @@ class Twendy_Application_Resource_Twendy extends Zend_Application_Resource_Resou
 	 */
 	public function init()
 	{
+		// Get Twendy options
+		$options = $this->getOptions();
+
 		// Initialise view object
 		$view = new Twendy_View();
 
@@ -25,8 +28,13 @@ class Twendy_Application_Resource_Twendy extends Zend_Application_Resource_Resou
 
 		// Assign to ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
-		$viewRenderer->setView($view)
-		             ->setViewSuffix('tpl');
+		$viewRenderer->setView($view);
+
+		if(!array_key_exists('viewSuffix', $options)) {
+			$options['viewSuffix'] = 'tpl';
+		}
+
+		$viewRenderer->setViewSuffix($options['viewSuffix']);
 
 		return $view;
 	}

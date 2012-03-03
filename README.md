@@ -31,6 +31,7 @@ Twendy provides some additional configuration options.  These are:
 * `extensions[]` - Extension classes to be automatically registered with the Twig_Environment
 * `layout` - Parent layout script to extend in child templates
 * `layoutPath` - Path to parent layout template
+* `viewSuffix` - The template file suffix, uses `tpl` by default
 
 Twendy Twig Extension
 ---------------------
