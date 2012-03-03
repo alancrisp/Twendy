@@ -5,20 +5,27 @@
 class Twendy_Application_Resource_Twendy extends Zend_Application_Resource_ResourceAbstract
 {
 	/**
+	 * @var array
+	 */
+	protected $_defaultOptions = array(
+		'viewSuffix' => 'tpl'
+	);
+
+	/**
 	 * Initialise twig
 	 * @see Zend_Application_Resource_Resource::init()
 	 */
 	public function init()
 	{
 		// Get Twendy options
-		$options = $this->getOptions();
+		$options = array_merge($this->_defaultOptions, $this->getOptions());
 
 		// Initialise view object
 		$view = new Twendy_View();
 
 		// Initialise Twig engine
 		$loader = new Twig_Loader_Filesystem(array());
-		$twig = new Twendy_Environment($view, $loader, $this->getOptions());
+		$twig = new Twendy_Environment($view, $loader, $options);
 
 		// Add zend token parser
 		$twig->addTokenParser(new Twendy_Extension_Zend_TokenParser());
@@ -28,13 +35,8 @@ class Twendy_Application_Resource_Twendy extends Zend_Application_Resource_Resou
 
 		// Assign to ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
-		$viewRenderer->setView($view);
-
-		if(!array_key_exists('viewSuffix', $options)) {
-			$options['viewSuffix'] = 'tpl';
-		}
-
-		$viewRenderer->setViewSuffix($options['viewSuffix']);
+		$viewRenderer->setView($view)
+		             ->setViewSuffix($options['viewSuffix']);
 
 		return $view;
 	}
