@@ -48,8 +48,8 @@ class Twendy_Environment extends Twig_Environment
 			$this->_view->setLayout($options['layout']);
 		}
 
-		if(array_key_exists('helperPaths', $options)) {
-			$this->registerHelperPaths($options['helperPaths']);
+		if(array_key_exists('helperPath', $options)) {
+			$this->registerHelperPaths($options['helperPath']);
 		}
 
 		return $this;
