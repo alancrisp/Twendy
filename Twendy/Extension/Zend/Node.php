@@ -16,7 +16,7 @@ class Twendy_Extension_Zend_Node extends Twig_Node
 		foreach($this->getAttribute('methods') as $method) {
 			$compiler->write('->' . $method['method'] . '(');
 
-			if($method['arguments'] !== null) {
+			if(null !== $method['arguments']) {
 				foreach($method['arguments'] as $argument) {
 					$compiler->subcompile($argument);
 				}

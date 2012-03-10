@@ -32,6 +32,7 @@ class Twendy_Environment extends Twig_Environment
 	/**
 	 * Set options
 	 * @param array $options
+	 * @return Twendy_Environment
 	 */
 	public function setOptions($options)
 	{
@@ -47,12 +48,17 @@ class Twendy_Environment extends Twig_Environment
 			$this->_view->setLayout($options['layout']);
 		}
 
+		if(array_key_exists('helperPaths', $options)) {
+			$this->registerHelperPaths($options['helperPaths']);
+		}
+
 		return $this;
 	}
 
 	/**
 	 * Register extensions
 	 * @param array $extensions
+	 * @return Twendy_Environment
 	 */
 	public function registerExtensions($extensions)
 	{
@@ -64,6 +70,24 @@ class Twendy_Environment extends Twig_Environment
 			if(class_exists($class)) {
 				$this->addExtension(new $class);
 			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Register view helper paths
+	 * @param array $helperPaths
+	 * @return Twendy_Environment
+	 */
+	public function registerHelperPaths($helperPaths)
+	{
+		if(!is_array($helperPaths)) {
+			$helperPaths = array('Zend_View_Helper_' => $helperPaths);
+		}
+
+		foreach($helperPaths as $classPrefix => $paths) {
+			$this->_view->addHelperPath($paths, $classPrefix);
 		}
 
 		return $this;

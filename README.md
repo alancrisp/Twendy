@@ -32,6 +32,7 @@ Twendy provides some additional configuration options.  These are:
 * `layout` - Parent layout script to extend in child templates
 * `layoutPath` - Path to parent layout template
 * `viewSuffix` - The template file suffix, uses `tpl` by default
+* `helperPath` - View helper directories to register with Zend_View
 
 Twendy Twig Extension
 ---------------------
@@ -97,6 +98,10 @@ Custom View Helpers
 -------------------
 
 Since Twendy has access to the Twendy_View object (and subsequently Zend_View which it extends), you don't need to do anything special to use your own view helpers in your templates.  Simply register the helper with the view object as you would usually and call it with the `zend` variable or tag as appropriate.
+
+You can register your custom view helpers by adding a line for each of your helper directories in application.ini like so.
+
+`resources.Twendy_Application_Resource_Twendy.helperPath.Application_View_Helper = "Application/View/Helper"`
 
 Feedback
 --------
