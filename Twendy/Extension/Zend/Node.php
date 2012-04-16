@@ -17,8 +17,17 @@ class Twendy_Extension_Zend_Node extends Twig_Node
 			$compiler->write('->' . $method['method'] . '(');
 
 			if(null !== $method['arguments']) {
+				$argCount = count($method['arguments']);
+				$iteration = 0;
+
 				foreach($method['arguments'] as $argument) {
 					$compiler->subcompile($argument);
+
+					if($argCount - 1 !== $iteration) {
+						$compiler->write(', ');
+					}
+
+					++$iteration;
 				}
 			}
 
